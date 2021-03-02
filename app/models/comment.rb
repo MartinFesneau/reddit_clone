@@ -7,11 +7,7 @@ class Comment < ApplicationRecord
   end
   
   def destroy
-    update(user: nil, body: nil)
-  end
-
-  def deleted?
-    user.nil?
+    update(deleted: true)
   end
 
   # CODE TO MOVE UP ALL COMMENTS IF A COMMENT IS DELETED

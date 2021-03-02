@@ -19,6 +19,6 @@
   <div id="comments">
     <%= render "comments/form", commentable: @post %>
 
-    <%= render @post.comments.where(parent_id: nil), max_nesting: 5 %>
+    <%= render @comments, max_nesting: 5 %>
   </div>
 </div>

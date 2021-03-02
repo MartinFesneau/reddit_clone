@@ -1,7 +1,7 @@
 <% nesting = local_assigns.fetch(:nesting, 1) %>
 <% max_nesting = local_assigns[:max_nesting] %>
 <div class="border-left pl-4 mt-4">
-  <% if comment.deleted? %>
+  <% if comment.deleted %>
     <strong>[deleted]</strong> posted:
     <p>[deleted]</p>
   <% else %>
@@ -11,7 +11,7 @@
 
   <div data-controller="reply">
     <%= link_to "Reply", "#", data: { action: "click->reply#toggle"}  %>
-    <%= link_to "Delete", [comment.commentable, comment], method: :delete, data: {confirm: "Are you sure?" } if comment.user == current_user %> 
+    <%= link_to "Delete", [comment.commentable, comment], method: :delete, data: {confirm: "Are you sure?" } if comment.user == current_user unless comment.deleted %> 
     <%= render "comments/form", 
       commentable: comment.commentable, 
       parent_id: reply_to_comment_id(comment, nesting, max_nesting),

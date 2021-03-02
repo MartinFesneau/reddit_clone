@@ -8,6 +8,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @comments = @post.comments.where(parent_id: nil)
   end
 
   # GET /posts/new
