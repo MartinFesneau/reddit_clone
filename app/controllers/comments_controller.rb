@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = @commentable.comments.find(params[:id])
+    @comment = @commentable.comments.where(user: current_user).find(params[:id])
     @comment.destroy
     redirect_to @commentable
   end
