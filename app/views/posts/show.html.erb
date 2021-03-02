@@ -15,8 +15,10 @@
 <%= link_to 'Back', posts_path %>
 
 
-<h3>Comments</h3>
-  <%= render "comments/form", commentable: @post %>
+<h3 class="mt-3">Comments</h3>
+  <div id="comments">
+    <%= render "comments/form", commentable: @post %>
 
-  <%= render @post.comments.where(parent_id: nil), max_nesting: 5 %>
+    <%= render @post.comments.where(parent_id: nil), max_nesting: 5 %>
+  </div>
 </div>

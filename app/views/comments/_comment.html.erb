@@ -1,21 +1,24 @@
 <% nesting = local_assigns.fetch(:nesting, 1) %>
 <% max_nesting = local_assigns[:max_nesting] %>
-<div class="comment mb-2 mt-2">
-  <div class="border-left  pl-4 pt-2 pb-2 pr-4 ">
+<div class="border-left pl-4 mt-4">
+  <% if comment.deleted? %>
+    <strong>[deleted]</strong> posted:
+    <p>[deleted]</p>
+  <% else %>
     <strong><%= comment.user.email %></strong> posted:
     <%= simple_format comment.body %>
+  <% end %>
 
-    <div data-controller="reply">
-      <%= link_to "Reply", "#", data: { action: "click->reply#toggle"}  %>
-      <%= link_to "Delete", [comment.commentable, comment], method: :delete, data: {confirm: "Are you sure?" } if comment.user == current_user %> 
-      <%= render "comments/form", 
-        commentable: comment.commentable, 
-        parent_id: reply_to_comment_id(comment, nesting, max_nesting),
-        class: "d-none", 
-        target: "reply.form" %>
-    </div>
-    <div class="mb-2 mt-2">
-      <%= render comment.comments, nesting: nesting + 1, max_nesting: local_assigns[:max_nesting] %>
-    </div>
+  <div data-controller="reply">
+    <%= link_to "Reply", "#", data: { action: "click->reply#toggle"}  %>
+    <%= link_to "Delete", [comment.commentable, comment], method: :delete, data: {confirm: "Are you sure?" } if comment.user == current_user %> 
+    <%= render "comments/form", 
+      commentable: comment.commentable, 
+      parent_id: reply_to_comment_id(comment, nesting, max_nesting),
+      class: "d-none", 
+      target: "reply.form" %>
   </div>
+  <%= tag.div id: "#{dom_id(comment)}_comments" do %>
+    <%= render comment.comments, nesting: nesting + 1, max_nesting: local_assigns[:max_nesting] %>
+  <% end %>
 </div>

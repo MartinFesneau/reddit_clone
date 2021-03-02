@@ -1,4 +1,4 @@
-<%= simple_form_for [commentable, Comment.new ], local: true, html: { class: local_assigns[:class] }, data: { target: local_assigns[:target]} do |f| %>
+<%= form_with model: [commentable, Comment.new ], html: { class: local_assigns[:class] }, data: { target: local_assigns[:target]} do |f| %>
   <div class="form-group">
     <%= f.text_area :body, placeholder: "Add a comment", class: "form-control" %>
   </div>
