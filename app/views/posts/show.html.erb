@@ -18,7 +18,16 @@
 <h3 class="mt-3">Comments</h3>
   <div id="comments">
     <%= render "comments/form", commentable: @post %>
+  <% if params[:comment] %>
+    <p>Viewing single comment thread <%= link_to "View all comments", url_for() %></p>
+  <% end %>
 
-    <%= render @comments, max_nesting: 5 %>
+    <%= render @comments, continue_thread: 5 %>
   </div>
+
+  <br/>
+  <% unless params[:comment] %>
+    <%= paginate @comments %>
+  <% end %>
+
 </div>
